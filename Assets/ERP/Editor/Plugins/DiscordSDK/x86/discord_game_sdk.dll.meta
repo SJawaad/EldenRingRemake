@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1727ecd695a502444b36efd0e5dacd34
+guid: 7cc1a84a3fca5524cb7bcb73f7c1aabd
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -30,7 +30,7 @@ PluginImporter:
     second:
       enabled: 1
       settings:
-        CPU: x86_64
+        CPU: x86
         DefaultValueInitialized: true
         OS: AnyOS
   - first:
@@ -83,5 +83,5 @@ AssetOrigin:
   productId: 178736
   packageName: Editor Rich Presence
   packageVersion: 3.1.2
-  assetPath: Assets/ERP/Editor/Plugins/DiscordSDK/x86_64/discord_game_sdk.dll
+  assetPath: Assets/ERP/Editor/Plugins/DiscordSDK/x86/discord_game_sdk.dll
   uploadId: 436313
