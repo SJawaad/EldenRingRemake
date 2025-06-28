@@ -12,6 +12,9 @@ namespace JM
         PlayerControls playerControls;
 
         [SerializeField] Vector2 movementInput;
+        [SerializeField] float verticalInput;
+        [SerializeField] float horizontalInput;
+        [SerializeField] float moveAmount;
 
         private void Awake()
         {
@@ -54,6 +57,11 @@ namespace JM
             SceneManager.activeSceneChanged -= OnSceneChange;
         }
 
+        private void Update()
+        {
+            HandleMovementInput();
+        }
+
         private void OnSceneChange(Scene current, Scene next)
         {
             // IF WE ARE LOADING INTO THE WORLD SCENE, ENABLE THE INPUT MANAGER
@@ -65,6 +73,25 @@ namespace JM
             else
             {
                 instance.enabled = false;
+            }
+        }
+
+        private void HandleMovementInput()
+        {
+            verticalInput = movementInput.y;
+            horizontalInput = movementInput.x;
+
+            // RETURNS ABSOLUTE VALUE OF THE INPUTS
+            moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
+
+            // ENSURE MOVE AMOUNT IS WITHIN A SPECIFIC RANGE TO PREVENT JITTERY MOVEMENT (OPTIONAL)
+            if (moveAmount <= 0.5 && moveAmount > 0)
+            {
+                moveAmount = 0.5f;
+            }
+            else if (moveAmount > 0.5 && moveAmount <= 1)
+            {
+                moveAmount = 1f;
             }
         }
     }
