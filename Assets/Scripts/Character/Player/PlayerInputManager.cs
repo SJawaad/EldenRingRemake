@@ -15,8 +15,25 @@ namespace JM
 
         private void Awake()
         {
+            if(instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void Start()
+        {
+            DontDestroyOnLoad(gameObject);
+
             //WHEN SCENE CHANGES, RUN THIS LOGIC
             SceneManager.activeSceneChanged += OnSceneChange;
+
+            instance.enabled = false; // DISABLE THE INPUT MANAGER BY DEFAULT
+
         }
 
         private void OnEnable()
@@ -39,10 +56,15 @@ namespace JM
 
         private void OnSceneChange(Scene current, Scene next)
         {
-            if (playerControls != null)
+            // IF WE ARE LOADING INTO THE WORLD SCENE, ENABLE THE INPUT MANAGER
+            if (next.buildIndex == WorldSaveGameManager.instance.GetWorldSceneIndex())
             {
-                playerControls.Disable();
-                playerControls = null;
+                instance.enabled = true;
+            }
+            // IF WE ARE NOT IN THE WORLD SCENE, DISABLE THE INPUT MANAGER
+            else
+            {
+                instance.enabled = false;
             }
         }
     }
