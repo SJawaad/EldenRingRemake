@@ -12,9 +12,9 @@ namespace JM
         PlayerControls playerControls;
 
         [SerializeField] Vector2 movementInput;
-        [SerializeField] float verticalInput;
-        [SerializeField] float horizontalInput;
-        [SerializeField] float moveAmount;
+        public float verticalInput;
+        public float horizontalInput;
+        public float moveAmount;
 
         private void Awake()
         {
@@ -85,11 +85,11 @@ namespace JM
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
             // ENSURE MOVE AMOUNT IS WITHIN A SPECIFIC RANGE TO PREVENT JITTERY MOVEMENT (OPTIONAL)
-            if (moveAmount <= 0.5 && moveAmount > 0)
+            if (moveAmount <= 0.5f && moveAmount > 0f)
             {
                 moveAmount = 0.5f;
             }
-            else if (moveAmount > 0.5 && moveAmount <= 1)
+            else if (moveAmount > 0.5f && moveAmount <= 1f)
             {
                 moveAmount = 1f;
             }
