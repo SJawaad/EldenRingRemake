@@ -19,6 +19,10 @@ namespace JM
         {
             base.Update();
 
+            // DO NOT WANT TO CONTROL OR EDIT OTHER PLAYERS' CHARACTERS
+            if (!IsOwner)
+                return;
+
             // HANDLE ALL PLAYER MOVEMENT
             playerLocomotionManager.HandleAllMovement();
         }

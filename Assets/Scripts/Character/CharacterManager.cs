@@ -1,24 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace JM
 {
-	public class CharacterManager : MonoBehaviour
+	public class CharacterManager : NetworkBehaviour
 	{
         public CharacterController characterController;
+
+        CharacterNetworkManager characterNetworkManager;
 
         protected virtual void Awake()
         {
             DontDestroyOnLoad(this);
 
             characterController = GetComponent<CharacterController>();
+            characterNetworkManager = GetComponent<CharacterNetworkManager>();
         }
 
         protected virtual void Update()
         {
+            // IF CHARACTER IS BEING CONTROLLED FROM OUR SIDE, THEN ASSIGN ITS NETWORK POSITION TO THE POSITION OF OUR TRANSFORM
+            if (IsOwner)
+            {
+                characterNetworkManager.networkPosition.Value = transform.position;
+                characterNetworkManager.networkRotation.Value = transform.rotation;
+            }
+            // IF CHARACTER IS BEING CONTROLLED FROM ELSEWHERE, THEN ASSIGN ITS POSITION LOCALLY BY POSITION OF ITS NETWORK TRANSFORM
+            else
+            {
+                // POSITION
+                transform.position = Vector3.SmoothDamp(transform.position, characterNetworkManager.networkPosition.Value, 
+                    ref characterNetworkManager.networkVelocity, 
+                    characterNetworkManager.networkPositionSmoothTime);
 
+                // ROTATION
+                transform.rotation = Quaternion.Slerp(transform.rotation, characterNetworkManager.networkRotation.Value, characterNetworkManager.networkRotationSmoothTime);
+            }
         }
     }
 }

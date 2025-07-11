@@ -32,7 +32,7 @@ namespace JM
         {
             DontDestroyOnLoad(gameObject);
 
-            //WHEN SCENE CHANGES, RUN THIS LOGIC
+            // WHEN SCENE CHANGES, RUN THIS LOGIC
             SceneManager.activeSceneChanged += OnSceneChange;
 
             instance.enabled = false; // DISABLE THE INPUT MANAGER BY DEFAULT
@@ -53,13 +53,29 @@ namespace JM
 
         private void OnDestroy()
         {
-            //WHEN OBJECT DESTORYED, UNSUBSCRIBE FROM THE SCENE CHANGE EVENT
+            // WHEN OBJECT DESTORYED, UNSUBSCRIBE FROM THE SCENE CHANGE EVENT
             SceneManager.activeSceneChanged -= OnSceneChange;
         }
 
         private void Update()
         {
             HandleMovementInput();
+        }
+
+        // PREVENTS INPUTS BEING READ WHEN GAME IS MINIMISED
+        private void OnApplicationFocus(bool focus)
+        {
+            if (enabled)
+            {
+                if (focus)
+                {
+                    playerControls.Enable();
+                }
+                else
+                {
+                    playerControls?.Disable();
+                }
+            }
         }
 
         private void OnSceneChange(Scene current, Scene next)
