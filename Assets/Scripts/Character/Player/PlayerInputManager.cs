@@ -11,10 +11,16 @@ namespace JM
 
         PlayerControls playerControls;
 
-        [SerializeField] Vector2 movementInput;
+        [Header("Player Movement Input")]
+        [SerializeField] Vector2 playerMovementInput;
         public float verticalInput;
         public float horizontalInput;
         public float moveAmount;
+
+        [Header("Camera Movement Input")]
+        [SerializeField] Vector2 cameraMovementInput;
+        public float cameraVerticalInput;
+        public float cameraHorizontalInput;
 
         private void Awake()
         {
@@ -45,7 +51,8 @@ namespace JM
             {
                 playerControls = new PlayerControls();
 
-                playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+                playerControls.PlayerMovement.Movement.performed += i => playerMovementInput = i.ReadValue<Vector2>();
+                playerControls.PlayerCamera.Movement.performed += i => cameraMovementInput = i.ReadValue<Vector2>();
             }
 
             playerControls.Enable();
@@ -55,11 +62,6 @@ namespace JM
         {
             // WHEN OBJECT DESTORYED, UNSUBSCRIBE FROM THE SCENE CHANGE EVENT
             SceneManager.activeSceneChanged -= OnSceneChange;
-        }
-
-        private void Update()
-        {
-            HandleMovementInput();
         }
 
         // PREVENTS INPUTS BEING READ WHEN GAME IS MINIMISED
@@ -92,10 +94,16 @@ namespace JM
             }
         }
 
-        private void HandleMovementInput()
+        private void Update()
         {
-            verticalInput = movementInput.y;
-            horizontalInput = movementInput.x;
+            HandlePlayerMovementInput();
+            HandleCameraMovementInput();
+        }
+
+        private void HandlePlayerMovementInput()
+        {
+            verticalInput = playerMovementInput.y;
+            horizontalInput = playerMovementInput.x;
 
             // RETURNS ABSOLUTE VALUE OF THE INPUTS
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
@@ -109,6 +117,12 @@ namespace JM
             {
                 moveAmount = 1f;
             }
+        }
+
+        private void HandleCameraMovementInput()
+        {
+            cameraVerticalInput = cameraMovementInput.y;
+            cameraHorizontalInput = cameraMovementInput.x;
         }
     }
 }
