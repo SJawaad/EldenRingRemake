@@ -8,6 +8,7 @@ namespace JM
     public class PlayerInputManager : MonoBehaviour
     {
         public static PlayerInputManager instance;
+        public PlayerManager player;
 
         PlayerControls playerControls;
 
@@ -117,6 +118,13 @@ namespace JM
             {
                 moveAmount = 1f;
             }
+
+            if (player == null)
+                return;
+
+            // PASS 0 IN HORIZONTAL AS WE ARE NOT LOCKED ON SO THERE IS NO STRAFING (ONLY WALK BACK/FORWARD AND RUN BACK/FORWARD)
+            // ONLY USE HORIZONTAL WHEN WE ARE LOCKED ON
+            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
         }
 
         private void HandleCameraMovementInput()

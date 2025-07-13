@@ -1323,6 +1323,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: World Network Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7772322016417901224, guid: a72cc148cd939ac4e826d626fc59a8a9, type: 3}
+      propertyPath: NetworkConfig.PlayerPrefab
+      value: 
+      objectReference: {fileID: 736582822251837267, guid: ddb7465a2b3618c48b1c461c014a65bc, type: 3}
     - target: {fileID: 8853247635237174882, guid: a72cc148cd939ac4e826d626fc59a8a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
