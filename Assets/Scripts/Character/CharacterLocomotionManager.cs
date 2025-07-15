@@ -10,5 +10,10 @@ namespace JM
         {
 
         }
+
+        protected virtual void Update()
+        {
+
+        }
     }
 }
