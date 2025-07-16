@@ -56,7 +56,8 @@ namespace JM
                 playerControls = new PlayerControls();
 
                 playerControls.PlayerMovement.Movement.performed += i => playerMovementInput = i.ReadValue<Vector2>();
-                playerControls.PlayerCamera.Movement.performed += i => cameraMovementInput = i.ReadValue<Vector2>();
+                playerControls.PlayerCamera.Controller.performed += i => cameraMovementInput = i.ReadValue<Vector2>();
+                playerControls.PlayerCamera.Mouse.performed += i => cameraMovementInput = i.ReadValue<Vector2>();
                 playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
             }
 

@@ -65,6 +65,9 @@ namespace JM
         {
             GetMovementValues();
 
+            if (!player.canMove)
+                return;
+
             // MOVEMENT DIRECTION IS BASED ON THE CAMERA'S PERSPECTIVE & OUR INPUT
             movementDirection = PlayerCamera.instance.transform.forward * verticalMovement;
             movementDirection += PlayerCamera.instance.transform.right * horizontalMovement;
@@ -85,6 +88,9 @@ namespace JM
 
         private void HandleRotation()
         {
+            if (!player.canRotate)
+                return;
+
             targetRotationDirection = Vector3.zero;
             targetRotationDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
             targetRotationDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
@@ -123,7 +129,7 @@ namespace JM
             // IF PLAYER IS NOT MOVING, PERFORM A BACKSTEP
             else
             {
-
+                player.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true);
             }
         }
     }
