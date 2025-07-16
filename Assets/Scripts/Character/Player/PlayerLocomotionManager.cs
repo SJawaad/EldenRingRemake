@@ -107,6 +107,19 @@ namespace JM
             transform.rotation = targetRotation;
         }
 
+        public void HandleSprinting()
+        {
+            if (player.isPerformingAction)
+            {
+
+            }
+
+            // IF OUT OF STAMINA, STOP SPRINTING
+
+            // IF MOVING, SET SPRINTING TO TRUE
+            //IF STATIONARY, SET SPRINTING TO FALSE
+        }
+
         public void AttemptToPerformDodge()
         {
             if (player.isPerformingAction)

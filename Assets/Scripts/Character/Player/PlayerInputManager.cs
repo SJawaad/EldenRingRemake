@@ -25,6 +25,7 @@ namespace JM
 
         [Header("Player Action Input")]
         [SerializeField] bool dodgeInput = false;
+        [SerializeField] bool sprintInput = false;
 
         private void Awake()
         {
@@ -55,10 +56,15 @@ namespace JM
             {
                 playerControls = new PlayerControls();
 
+                // MOVEMENT
                 playerControls.PlayerMovement.Movement.performed += i => playerMovementInput = i.ReadValue<Vector2>();
                 playerControls.PlayerCamera.Controller.performed += i => cameraMovementInput = i.ReadValue<Vector2>();
                 playerControls.PlayerCamera.Mouse.performed += i => cameraMovementInput = i.ReadValue<Vector2>();
+
+                // ACTIONS
                 playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+                playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+                playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
             }
 
             playerControls.Enable();
@@ -107,9 +113,13 @@ namespace JM
 
         private void HandleAllInput()
         {
+            // MOVEMENT
             HandlePlayerMovementInput();
             HandleCameraMovementInput();
+
+            // ACTIONS
             HandleDodgeInput();
+            HandleSprintInput();
         }
 
         //------------------------------MOVEMENT---------------------------------//
@@ -154,6 +164,14 @@ namespace JM
             {
                 dodgeInput = false;
                 player.playerLocomotionManager.AttemptToPerformDodge();
+            }
+        }
+
+        private void HandleSprintInput()
+        {
+            if (sprintInput)
+            {
+                player.playerLocomotionManager.HandleSprinting();
             }
         }
     }
