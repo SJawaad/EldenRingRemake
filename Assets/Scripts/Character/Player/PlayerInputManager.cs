@@ -147,7 +147,7 @@ namespace JM
 
             // PASS 0 IN HORIZONTAL AS WE ARE NOT LOCKED ON SO THERE IS NO STRAFING (ONLY WALK BACK/FORWARD AND RUN BACK/FORWARD)
             // ONLY USE HORIZONTAL WHEN WE ARE LOCKED ON
-            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
         }
 
         private void HandleCameraMovementInput()
@@ -172,6 +172,10 @@ namespace JM
             if (sprintInput)
             {
                 player.playerLocomotionManager.HandleSprinting();
+            }
+            else
+            {
+                player.playerNetworkManager.isSprinting.Value = false;
             }
         }
     }

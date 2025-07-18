@@ -16,6 +16,7 @@ namespace JM
         private Vector3 targetRotationDirection;
         [SerializeField] float walkingSpeed = 2f;
         [SerializeField] float runningSpeed = 5f;
+        [SerializeField] float sprintingSpeed = 6.5f;
         [SerializeField] float rotationSpeed = 15f;
 
         [Header("Dodge Settings")]
@@ -44,7 +45,7 @@ namespace JM
                 horizontalMovement = player.characterNetworkManager.horizontalMovement.Value;
                 moveAmount = player.characterNetworkManager.moveAmount.Value;
 
-                player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+                player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
             }
         }
 
@@ -74,15 +75,22 @@ namespace JM
             movementDirection.Normalize();
             movementDirection.y = 0;
 
-            if (PlayerInputManager.instance.moveAmount > 0.5f)
+            if (player.playerNetworkManager.isSprinting.Value)
             {
-                // MOVE AT RUNNING SPEED
-                player.characterController.Move(movementDirection * runningSpeed * Time.deltaTime);
+                player.characterController.Move(movementDirection * sprintingSpeed * Time.deltaTime);
             }
-            else if(PlayerInputManager.instance.moveAmount <= 0.5f)
+            else
             {
-                // MOVE AT WALKING SPEED
-                player.characterController.Move(movementDirection * walkingSpeed * Time.deltaTime);
+                if (PlayerInputManager.instance.moveAmount > 0.5f)
+                {
+                    // MOVE AT RUNNING SPEED
+                    player.characterController.Move(movementDirection * runningSpeed * Time.deltaTime);
+                }
+                else if (PlayerInputManager.instance.moveAmount <= 0.5f)
+                {
+                    // MOVE AT WALKING SPEED
+                    player.characterController.Move(movementDirection * walkingSpeed * Time.deltaTime);
+                }
             }
         }
 
@@ -111,13 +119,22 @@ namespace JM
         {
             if (player.isPerformingAction)
             {
-
+                player.playerNetworkManager.isSprinting.Value = false;
             }
 
             // IF OUT OF STAMINA, STOP SPRINTING
 
             // IF MOVING, SET SPRINTING TO TRUE
+
+            if (moveAmount >= 0.5f)
+            {
+                player.playerNetworkManager.isSprinting.Value = true;
+            }
             //IF STATIONARY, SET SPRINTING TO FALSE
+            else
+            {
+                player.playerNetworkManager.isSprinting.Value = false;
+            }
         }
 
         public void AttemptToPerformDodge()
