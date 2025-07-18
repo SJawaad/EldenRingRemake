@@ -13,6 +13,8 @@ namespace JM
 	{
         public static PlayerUIManager instance;
 
+        [HideInInspector] public PlayerUIHudManager playerUIHudManager;
+
         [Header("NETWORK JOIN")]
 		[SerializeField] bool startGameAsClient;
 
@@ -28,6 +30,8 @@ namespace JM
             {
                 Destroy(gameObject);
             }
+
+            playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
         }
 
         private void Start()
