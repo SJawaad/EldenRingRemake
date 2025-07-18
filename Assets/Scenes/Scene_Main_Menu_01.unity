@@ -1262,6 +1262,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1002222994026472706, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002222994026472706, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002222994026472706, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002222994026472706, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895047128890262249, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895047128890262249, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4550753488888108223, guid: 034953217546e7a488d40306437a86aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1305,6 +1329,18 @@ PrefabInstance:
     - target: {fileID: 5418114275740572336, guid: 034953217546e7a488d40306437a86aa, type: 3}
       propertyPath: m_Name
       value: Player UI Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522130012247704246, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522130012247704246, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522130012247704246, guid: 034953217546e7a488d40306437a86aa, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
