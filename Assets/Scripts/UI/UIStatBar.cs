@@ -15,14 +15,15 @@ namespace JM
             slider = GetComponent<Slider>();
         }
 
-        public virtual void SetStat()
+        public virtual void SetStat(float newValue)
         {
-
+            slider.value = newValue;
         }
 
-        public virtual void SetMaxStat()
+        public virtual void SetMaxStat(float maxValue)
         {
-
+            slider.maxValue = maxValue;
+            slider.value = maxValue;
         }
     }
 }

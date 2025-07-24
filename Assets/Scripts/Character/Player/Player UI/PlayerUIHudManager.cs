@@ -8,9 +8,14 @@ namespace JM
     {
         [SerializeField] UIStatBar staminaBar;
 
-        public void SetNewStaminaValue()
+        public void SetNewStaminaValue(float oldValue, float newValue)
         {
+            staminaBar.SetStat(newValue);
+        }
 
+        public void SetMaxStaminaValue(float maxValue)
+        {
+            staminaBar.SetMaxStat(maxValue);
         }
     }
 }

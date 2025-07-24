@@ -14,18 +14,19 @@ namespace JM
         [Header("Movement Settings")]
         private Vector3 movementDirection;
         private Vector3 targetRotationDirection;
-        [SerializeField] float walkingSpeed = 2f;
-        [SerializeField] float runningSpeed = 5f;
-        [SerializeField] float sprintingSpeed = 6.5f;
+        [SerializeField] float walkingSpeed = 1.5f;
+        [SerializeField] float runningSpeed = 4.5f;
+        [SerializeField] float sprintingSpeed = 7f;
         [SerializeField] float rotationSpeed = 15f;
+        [SerializeField] float sprintingStaminaCost = 5f;
 
         [Header("Dodge Settings")]
         private Vector3 rollDirection;
+        [SerializeField] float dodgeStaminaCost = 20f;
 
         protected override void Awake()
         {
             base.Awake();
-
             player = GetComponent<PlayerManager>();
         }
 
@@ -123,9 +124,13 @@ namespace JM
             }
 
             // IF OUT OF STAMINA, STOP SPRINTING
+            if (player.playerNetworkManager.currentStamina.Value <= 0)
+            {
+                player.playerNetworkManager.isSprinting.Value = false;
+                return;
+            }
 
             // IF MOVING, SET SPRINTING TO TRUE
-
             if (moveAmount >= 0.5f)
             {
                 player.playerNetworkManager.isSprinting.Value = true;
@@ -135,11 +140,20 @@ namespace JM
             {
                 player.playerNetworkManager.isSprinting.Value = false;
             }
+
+            if (player.playerNetworkManager.isSprinting.Value)
+            {
+                // IF PLAYER IS SPRINTING, DRAIN STAMINA
+                player.playerNetworkManager.currentStamina.Value -= sprintingStaminaCost * Time.deltaTime;
+            }
         }
 
         public void AttemptToPerformDodge()
         {
             if (player.isPerformingAction)
+                return;
+
+            if (player.playerNetworkManager.currentStamina.Value <= 0)
                 return;
 
             // IF PLAYER IS MOVING, PERFORM ROLL IN CAMERA DIRECION
@@ -161,6 +175,8 @@ namespace JM
             {
                 player.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true);
             }
+
+            player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
         }
     }
 }

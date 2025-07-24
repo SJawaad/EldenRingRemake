@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fce83e917173804e85c55409f3a4934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUIHudManager: {fileID: 0}
   startGameAsClient: 0
 --- !u!1 &5872452472432645335
 GameObject:
@@ -265,7 +266,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6978613614441718843
 MonoBehaviour:
@@ -628,3 +629,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1ae290fa263fa46b76dee782ba58ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staminaBar: {fileID: 4829118266806274202}

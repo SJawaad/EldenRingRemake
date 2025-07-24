@@ -9,6 +9,7 @@ namespace JM
         [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
         [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
         [HideInInspector] public PlayerNetworkManager playerNetworkManager;
+        [HideInInspector] public PlayerStatsManager playerStatsManager;
 
         protected override void Awake()
         {
@@ -17,6 +18,7 @@ namespace JM
             playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
             playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
             playerNetworkManager = GetComponent<PlayerNetworkManager>();
+            playerStatsManager = GetComponent<PlayerStatsManager>();
         }
 
         protected override void Update()
@@ -29,6 +31,9 @@ namespace JM
 
             // HANDLE ALL PLAYER MOVEMENT
             playerLocomotionManager.HandleAllMovement();
+
+            // REGEN STAMINA IF PLAYER IS NOT SPRINTING
+            playerStatsManager.RegenerateStamina();
         }
 
         protected override void LateUpdate()
@@ -49,6 +54,14 @@ namespace JM
             {
                 PlayerCamera.instance.player = this;
                 PlayerInputManager.instance.player = this;
+
+                playerNetworkManager.currentStamina.OnValueChanged += PlayerUIManager.instance.playerUIHudManager.SetNewStaminaValue;
+                playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenTimer;
+
+                // THIS WILL BE MOVED WHEN SAVING AND LOADING IS ADDED
+                playerNetworkManager.maxStamina.Value = playerStatsManager.CalculateTotalStaminaBasedOnEnduranceLevel(playerNetworkManager.endurance.Value);
+                playerNetworkManager.currentStamina.Value = playerStatsManager.CalculateTotalStaminaBasedOnEnduranceLevel(playerNetworkManager.endurance.Value);
+                PlayerUIManager.instance.playerUIHudManager.SetMaxStaminaValue(playerNetworkManager.maxStamina.Value);
             }
         }
 

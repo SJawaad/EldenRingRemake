@@ -284,6 +284,7 @@ MonoBehaviour:
   playerAnimatorManager: {fileID: 0}
   playerLocomotionManager: {fileID: 0}
   playerNetworkManager: {fileID: 0}
+  playerStatsManager: {fileID: 0}
 --- !u!114 &916925202141706405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +313,12 @@ MonoBehaviour:
     m_InternalValue: 0
   isSprinting:
     m_InternalValue: 0
+  endurance:
+    m_InternalValue: 10
+  currentStamina:
+    m_InternalValue: 0
+  maxStamina:
+    m_InternalValue: 0
 --- !u!114 &3942187361311820867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,6 +338,8 @@ MonoBehaviour:
   runningSpeed: 4.5
   sprintingSpeed: 7
   rotationSpeed: 15
+  sprintingStaminaCost: 5
+  dodgeStaminaCost: 20
 --- !u!114 &-1484513625647574042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,3 +376,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef1937095c4f454592f7d11ee0a776d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regenDelay: 2
+  staminaRegenAmount: 0.8
