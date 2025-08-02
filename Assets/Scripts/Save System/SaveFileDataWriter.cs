@@ -6,7 +6,7 @@ using System.IO;
 
 namespace JM
 {
-    public class SaveFileDataWriter : MonoBehaviour
+    public class SaveFileDataWriter
     {
         public string saveDataDirectoryPath = "";
         public string saveFileName = "";
@@ -58,6 +58,41 @@ namespace JM
             {
                 Debug.LogError("ERROR SAVING CHARACTER DATA: " + savePath + "\n" + e.Message);
             }
+        }
+
+        // USED TO LOAD A SAVE FILE WHEN LOADING PREVIOUS SAVE
+
+        public CharacterSaveData LoadSaveFile()
+        {
+            CharacterSaveData characterData = null;
+
+            // GET PATH TO SAVE FILE
+            string loadPath = Path.Combine(saveDataDirectoryPath, saveFileName);
+
+            if (File.Exists(loadPath))
+            {
+                try
+                {
+                    string dataToLoad = "";
+
+                    using (FileStream stream = new FileStream(loadPath, FileMode.Open))
+                    {
+                        using (StreamReader fileReader = new StreamReader(stream))
+                        {
+                            dataToLoad = fileReader.ReadToEnd();
+                        }
+                    }
+
+                    // DESERIALIZE THE DATA FROM JSON
+                    characterData = JsonUtility.FromJson<CharacterSaveData>(dataToLoad);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("ERROR LOADING CHARACTER DATA: " + loadPath + "\n" + e.Message);
+                }
+            }
+
+            return characterData;
         }
     }
 }
