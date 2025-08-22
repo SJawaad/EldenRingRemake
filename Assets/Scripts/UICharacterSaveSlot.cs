@@ -29,6 +29,7 @@ namespace JM
             switch (characterSlot)
             {
                 case CharacterSlot.CharacterSlot_01:
+
                     saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
 
                     if (saveFileDataWriter.CheckToSeeIfFileExists())
@@ -40,32 +41,131 @@ namespace JM
                         gameObject.SetActive(false);
                     }
                     break;
+
                 case CharacterSlot.CharacterSlot_02:
-                    saveFileDataWriter.saveFileName = "characterSlot_02";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[1].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_03:
-                    saveFileDataWriter.saveFileName = "characterSlot_03";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[2].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_04:
-                    saveFileDataWriter.saveFileName = "characterSlot_04";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[3].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_05:
-                    saveFileDataWriter.saveFileName = "characterSlot_05";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[4].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_06:
-                    saveFileDataWriter.saveFileName = "characterSlot_06";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[5].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_07:
-                    saveFileDataWriter.saveFileName = "characterSlot_07";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[6].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_08:
-                    saveFileDataWriter.saveFileName = "characterSlot_08";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[7].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_09:
-                    saveFileDataWriter.saveFileName = "characterSlot_09";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[8].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
+
                 case CharacterSlot.CharacterSlot_10:
-                    saveFileDataWriter.saveFileName = "characterSlot_10";
+
+                    saveFileDataWriter.saveFileName = WorldSaveGameManager.instance.DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        characterName.text = WorldSaveGameManager.instance.characterSlots[9].characterName;
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                     break;
             }
         }

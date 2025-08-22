@@ -45,6 +45,8 @@ namespace JM
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
+
+            LoadAllCharacterSlots();
         }
 
         private void Update()
@@ -141,6 +143,43 @@ namespace JM
 
             // WRITE PLAYER INFO TO JSON FILE
             saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterData);
+        }
+
+        // LOAD ALL CHARACTER PROFILES ON DEVICE WHEN STARTING GAME
+        private void LoadAllCharacterSlots()
+        {
+            saveFileDataWriter = new SaveFileDataWriter();
+            saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
+            characterSlots[0] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
+            characterSlots[1] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_03);
+            characterSlots[2] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_04);
+            characterSlots[3] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_05);
+            characterSlots[4] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_06);
+            characterSlots[5] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_07);
+            characterSlots[6] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_08);
+            characterSlots[7] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_09);
+            characterSlots[8] = saveFileDataWriter.LoadSaveFile();
+
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_10);
+            characterSlots[9] = saveFileDataWriter.LoadSaveFile();
         }
 
         public IEnumerator LoadWorldScene()
