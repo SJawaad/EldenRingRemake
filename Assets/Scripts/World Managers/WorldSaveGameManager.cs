@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +11,7 @@ namespace JM
 	{
 		public static WorldSaveGameManager instance;
 
-        [SerializeField] PlayerManager player;
+        public PlayerManager player;
 
         [Header("Save/Load")]
         [SerializeField] bool saveGame;
@@ -105,12 +107,28 @@ namespace JM
             return fileName;
         }
 
-        public void CreateNewGame()
+        public void AttemptToCreateNewGame()
         {
-            // CREATE NEW FILE WITH FILE NAME BASED ON WHICH SLOT WE ARE USING
-            saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
+            saveFileDataWriter = new SaveFileDataWriter();
 
-            currentCharacterData = new CharacterSaveData();
+            foreach (var slot in Enum.GetValues(typeof(CharacterSlot)).Cast<CharacterSlot>())
+            {
+                // CHECK TO SEE IF WE CAN CREATE A NEW SAVE FILE
+                saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(slot);
+
+                // IF SLOT NOT TAKE, CREATE NEW SAVE ON THIS SLOT
+                if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    continue;
+
+                currentCharacterSlotBeingUsed = slot;
+                currentCharacterData = new CharacterSaveData();
+
+                StartCoroutine(LoadWorldScene());
+                return;
+            }
+
+            // NO FREE SLOTS AVAILABLE
+            TitleScreenManager.instance.DisplayNoFreeCharacterSlotsPopUp();
         }
 
         public void LoadGame()
@@ -120,7 +138,7 @@ namespace JM
 
             saveFileDataWriter = new SaveFileDataWriter();
 
-            // GENERAL DATA BATH WHICH GEENRALLY WORKS ON MOST MACHINE TYPES
+            // GENERAL DATA PATH WHICH GENERALLY WORKS ON MOST MACHINE TYPES
             saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
             saveFileDataWriter.saveFileName = saveFileName;
             currentCharacterData = saveFileDataWriter.LoadSaveFile();
@@ -134,7 +152,7 @@ namespace JM
 
             saveFileDataWriter = new SaveFileDataWriter();
 
-            // GENERAL DATA BATH WHICH GEENRALLY WORKS ON MOST MACHINE TYPES
+            // GENERAL DATA PATH WHICH GENERALLY WORKS ON MOST MACHINE TYPES
             saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
             saveFileDataWriter.saveFileName = saveFileName;
 
@@ -185,6 +203,8 @@ namespace JM
         public IEnumerator LoadWorldScene()
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(worldSceneIndex);
+
+            player.LoadGameDataFromCurrentCharacterData(ref currentCharacterData);
 
             yield return null;
         }

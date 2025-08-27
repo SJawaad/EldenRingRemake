@@ -8,6 +8,8 @@ namespace JM
 {
     public class TitleScreenManager : MonoBehaviour
     {
+        public static TitleScreenManager instance;
+
         [Header("Menus")]
         [SerializeField] GameObject titleScreenMainMenu;
         [SerializeField] GameObject titleScreenLoadCharacterMenu;
@@ -16,6 +18,22 @@ namespace JM
         [SerializeField] Button loadMenuReturnButton;
         [SerializeField] Button mainMenuLoadGameButton;
 
+        [Header("Pop Ups")]
+        [SerializeField] GameObject noCharacterSlotsPopUp;
+        [SerializeField] Button noCharacterSlotsOkayButton;
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         public void StartNetworkAsHost()
         {
             NetworkManager.Singleton.StartHost();
@@ -23,8 +41,7 @@ namespace JM
 
         public void StartNewGame()
         {
-            WorldSaveGameManager.instance.CreateNewGame();
-            StartCoroutine(WorldSaveGameManager.instance.LoadWorldScene());
+            WorldSaveGameManager.instance.AttemptToCreateNewGame();
         }
 
         public void OpenLoadGameMenu()
@@ -42,6 +59,12 @@ namespace JM
             titleScreenMainMenu.SetActive(true);
 
             mainMenuLoadGameButton.Select();
+        }
+
+        public void DisplayNoFreeCharacterSlotsPopUp()
+        {
+            noCharacterSlotsPopUp.SetActive(true);
+            noCharacterSlotsOkayButton.Select();
         }
     }
 }
