@@ -15,12 +15,16 @@ namespace JM
         [SerializeField] GameObject titleScreenLoadCharacterMenu;
 
         [Header("Buttons")]
-        [SerializeField] Button loadMenuReturnButton;
+        [SerializeField] Button mainMenuNewGameButton;
         [SerializeField] Button mainMenuLoadGameButton;
+        [SerializeField] Button loadMenuReturnButton;
 
         [Header("Pop Ups")]
         [SerializeField] GameObject noCharacterSlotsPopUp;
         [SerializeField] Button noCharacterSlotsOkayButton;
+
+        [Header("Character Slots")]
+        public CharacterSlot currentSelectedSlot;
 
         private void Awake()
         {
@@ -65,6 +69,17 @@ namespace JM
         {
             noCharacterSlotsPopUp.SetActive(true);
             noCharacterSlotsOkayButton.Select();
+        }
+
+        public void CloseNoFreeCharacterSlotsPopUp()
+        {
+            noCharacterSlotsPopUp.SetActive(false);
+            mainMenuNewGameButton.Select();
+        }
+
+        public void SelectCharacterSlot(CharacterSlot slot)
+        {
+            currentSelectedSlot = slot;
         }
     }
 }

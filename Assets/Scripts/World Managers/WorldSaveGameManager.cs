@@ -68,58 +68,30 @@ namespace JM
 
         public string DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot characterSlot)
         {
-            string fileName = "";
-
-            switch (characterSlot)
-            {
-                case CharacterSlot.CharacterSlot_01:
-                    fileName = "characterSlot_01";
-                    break;
-                case CharacterSlot.CharacterSlot_02:
-                    fileName = "characterSlot_02";
-                    break;
-                case CharacterSlot.CharacterSlot_03:
-                    fileName = "characterSlot_03";
-                    break;
-                case CharacterSlot.CharacterSlot_04:
-                    fileName = "characterSlot_04";
-                    break;
-                case CharacterSlot.CharacterSlot_05:
-                    fileName = "characterSlot_05";
-                    break;
-                case CharacterSlot.CharacterSlot_06:
-                    fileName = "characterSlot_06";
-                    break;
-                case CharacterSlot.CharacterSlot_07:
-                    fileName = "characterSlot_07";
-                    break;
-                case CharacterSlot.CharacterSlot_08:
-                    fileName = "characterSlot_08"; 
-                    break;
-                case CharacterSlot.CharacterSlot_09:
-                    fileName = "characterSlot_09";
-                    break;
-                case CharacterSlot.CharacterSlot_10:
-                    fileName = "characterSlot_10";
-                    break;
-            }
-
-            return fileName;
+            return $"characterSlot_{((int)characterSlot + 1):D2}";
         }
 
         public void AttemptToCreateNewGame()
         {
-            saveFileDataWriter = new SaveFileDataWriter();
+            saveFileDataWriter = new SaveFileDataWriter
+            {
+                saveDataDirectoryPath = Application.persistentDataPath
+            };
 
             foreach (var slot in Enum.GetValues(typeof(CharacterSlot)).Cast<CharacterSlot>())
             {
-                // CHECK TO SEE IF WE CAN CREATE A NEW SAVE FILE
+                // SKIP NO_SLOT
+                if (slot == CharacterSlot.NO_SLOT)
+                    continue;
+
+                // SET FILE NAME
                 saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(slot);
 
-                // IF SLOT NOT TAKE, CREATE NEW SAVE ON THIS SLOT
+                // CHECK FILE EXISTS
                 if (saveFileDataWriter.CheckToSeeIfFileExists())
                     continue;
 
+                // SET SAVE
                 currentCharacterSlotBeingUsed = slot;
                 currentCharacterData = new CharacterSaveData();
 
@@ -169,35 +141,12 @@ namespace JM
             saveFileDataWriter = new SaveFileDataWriter();
             saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
 
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_01);
-            characterSlots[0] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_02);
-            characterSlots[1] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_03);
-            characterSlots[2] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_04);
-            characterSlots[3] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_05);
-            characterSlots[4] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_06);
-            characterSlots[5] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_07);
-            characterSlots[6] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_08);
-            characterSlots[7] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_09);
-            characterSlots[8] = saveFileDataWriter.LoadSaveFile();
-
-            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(CharacterSlot.CharacterSlot_10);
-            characterSlots[9] = saveFileDataWriter.LoadSaveFile();
+            for (int i = 0; i < 10; i++)
+            {
+                var slot = (CharacterSlot)i;
+                saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(slot);
+                characterSlots[i] = saveFileDataWriter.LoadSaveFile();
+            }
         }
 
         public IEnumerator LoadWorldScene()
