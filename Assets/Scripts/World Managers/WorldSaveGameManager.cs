@@ -135,6 +135,16 @@ namespace JM
             saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterData);
         }
 
+        public void DeleteGame(CharacterSlot slot)
+        {
+            // CHOOSE FILE WITH FILE NAME BASED ON WHICH SLOT WE ARE USING
+            saveFileDataWriter = new SaveFileDataWriter();
+            saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(slot);
+
+            saveFileDataWriter.DeleteSaveFile();
+        }
+
         // LOAD ALL CHARACTER PROFILES ON DEVICE WHEN STARTING GAME
         private void LoadAllCharacterSlots()
         {

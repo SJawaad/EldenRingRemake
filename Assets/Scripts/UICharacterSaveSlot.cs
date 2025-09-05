@@ -180,5 +180,10 @@ namespace JM
         {
             TitleScreenManager.instance.SelectCharacterSlot(characterSlot);
         }
+
+        public void SelectNoSlot()
+        {
+            TitleScreenManager.instance.SelectNoSlot();
+        }
     }
 }

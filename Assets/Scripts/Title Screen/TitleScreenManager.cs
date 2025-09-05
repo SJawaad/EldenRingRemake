@@ -18,13 +18,17 @@ namespace JM
         [SerializeField] Button mainMenuNewGameButton;
         [SerializeField] Button mainMenuLoadGameButton;
         [SerializeField] Button loadMenuReturnButton;
+        [SerializeField] Button noCharacterSlotsOkayButton;
+        [SerializeField] Button deleteCharacterSlotConfirmButton;
 
         [Header("Pop Ups")]
         [SerializeField] GameObject noCharacterSlotsPopUp;
-        [SerializeField] Button noCharacterSlotsOkayButton;
+        [SerializeField] GameObject deleteCharacterSlotPopUp;
+
 
         [Header("Character Slots")]
-        public CharacterSlot currentSelectedSlot;
+        public CharacterSlot currentSelectedSlot = CharacterSlot.NO_SLOT;
+        [SerializeField] CharacterSlot slotToBeDeleted = CharacterSlot.NO_SLOT;
 
         private void Awake()
         {
@@ -80,6 +84,47 @@ namespace JM
         public void SelectCharacterSlot(CharacterSlot slot)
         {
             currentSelectedSlot = slot;
+            slotToBeDeleted = slot;
+        }
+
+        public void SelectNoSlot()
+        {
+            currentSelectedSlot = CharacterSlot.NO_SLOT;
+        }
+
+        public void ResetDeleteSlot()
+        {
+            slotToBeDeleted = CharacterSlot.NO_SLOT;
+        }
+
+        public void AttemptToDeleteCharacterSlot()
+        {
+            if(currentSelectedSlot != CharacterSlot.NO_SLOT && (currentSelectedSlot == slotToBeDeleted))
+            {
+                deleteCharacterSlotPopUp.SetActive(true);
+                deleteCharacterSlotConfirmButton.Select();
+            }
+        }
+
+        public void DeleteCharacterSlot()
+        {
+            // CLOSE POP UP AND DELETE CHARACTER SLOT
+            deleteCharacterSlotPopUp.SetActive(false);
+            WorldSaveGameManager.instance.DeleteGame(slotToBeDeleted);
+
+            // RELOAD LOAD MENU
+            titleScreenLoadCharacterMenu.SetActive(false);
+            titleScreenLoadCharacterMenu.SetActive(true);
+
+            // SELECT RETURN BUTTON AND RESET SLOT TO BE DELETED
+            loadMenuReturnButton.Select();
+            slotToBeDeleted = CharacterSlot.NO_SLOT;
+        }
+
+        public void CloseDeleteCharacterSlotPopUp()
+        {
+            deleteCharacterSlotPopUp.SetActive(false);
+            loadMenuReturnButton.Select();
         }
     }
 }

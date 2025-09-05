@@ -289,6 +289,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "26dde3d2-c544-4c6d-981a-0ab7ef68c5df",
+            "actions": [
+                {
+                    "name": "Delete Character Slot",
+                    "type": "Button",
+                    "id": "f7e8d4bb-bf3f-4363-adad-e36ca5378000",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "76635085-cb9e-49ff-99f3-c7e646e3b0a7",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delete Character Slot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0087edb-9eec-4f07-871f-cccf44a2118b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delete Character Slot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
