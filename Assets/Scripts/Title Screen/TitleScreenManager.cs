@@ -99,7 +99,7 @@ namespace JM
 
         public void AttemptToDeleteCharacterSlot()
         {
-            if(currentSelectedSlot != CharacterSlot.NO_SLOT && (currentSelectedSlot == slotToBeDeleted))
+            if (currentSelectedSlot != CharacterSlot.NO_SLOT && (currentSelectedSlot == slotToBeDeleted))
             {
                 deleteCharacterSlotPopUp.SetActive(true);
                 deleteCharacterSlotConfirmButton.Select();
