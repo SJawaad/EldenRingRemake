@@ -26,6 +26,7 @@ namespace JM
         [Header("Player Action Input")]
         [SerializeField] bool dodgeInput = false;
         [SerializeField] bool sprintInput = false;
+        [SerializeField] bool jumpInput = false;
 
         private void Awake()
         {
@@ -65,6 +66,7 @@ namespace JM
                 playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
                 playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
                 playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
+                playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
             }
 
             playerControls.Enable();
@@ -176,6 +178,18 @@ namespace JM
             else
             {
                 player.playerNetworkManager.isSprinting.Value = false;
+            }
+        }
+
+        private void HandleJumpInput()
+        {
+            if (jumpInput)
+            {
+                jumpInput = false;
+
+                // IF UI WINDOW OPEN, RETURN AND DO NOT JUMP
+
+                player.playerLocomotionManager.AttemptToPerformJump();
             }
         }
     }

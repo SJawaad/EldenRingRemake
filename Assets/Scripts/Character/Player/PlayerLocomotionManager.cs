@@ -24,6 +24,9 @@ namespace JM
         private Vector3 rollDirection;
         [SerializeField] float dodgeStaminaCost = 20f;
 
+        [Header("Jump Settings")]
+        [SerializeField] float jumpStaminaCost = 25f;
+
         protected override void Awake()
         {
             base.Awake();
@@ -177,6 +180,25 @@ namespace JM
             }
 
             player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
+        }
+
+        public void AttemptToPerformJump()
+        {
+            if (player.isPerformingAction)
+                return;
+
+            if (player.playerNetworkManager.currentStamina.Value <= 0)
+                return;
+
+            if (player.isJumping)
+                return;
+
+            if (player.isGrounded)
+                return;
+
+            player.playerAnimatorManager.PlayTargetActionAnimation("Main_Jump_Start_01", false);
+
+            player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
         }
     }
 }
