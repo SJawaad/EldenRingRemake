@@ -198,7 +198,16 @@ namespace JM
 
             player.playerAnimatorManager.PlayTargetActionAnimation("Main_Jump_Start_01", false);
 
+            player.isJumping = true;
+
             player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
+        }
+
+        public void ApplyJumpingVelocity()
+        {
+            // APPLY AN UPWARD VELOCITY
+
+
         }
     }
 }
