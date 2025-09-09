@@ -45,11 +45,13 @@ namespace JM
                 }
 
                 inAirTimer += Time.deltaTime;
+                character.animator.SetFloat("InAirTimer", inAirTimer);
 
                 yVelocity.y += gravityForce * Time.deltaTime;
-
-                character.characterController.Move(yVelocity * Time.deltaTime);
             }
+
+            // FORCE APPLIED TO CHARACTER
+            character.characterController.Move(yVelocity * Time.deltaTime);
         }
 
         protected void OnDrawGizmosSelected()

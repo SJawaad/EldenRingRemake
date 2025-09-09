@@ -31,6 +31,8 @@ namespace JM
 
         protected virtual void Update()
         {
+            animator.SetBool("IsGrounded", isGrounded);
+
             // IF CHARACTER IS BEING CONTROLLED FROM OUR SIDE, THEN ASSIGN ITS NETWORK POSITION TO THE POSITION OF OUR TRANSFORM
             if (IsOwner)
             {
