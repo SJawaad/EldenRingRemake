@@ -110,10 +110,10 @@ namespace JM
 
         private void Update()
         {
-            HandleAllInput();
+            HandleAllInputs();
         }
 
-        private void HandleAllInput()
+        private void HandleAllInputs()
         {
             // MOVEMENT
             HandlePlayerMovementInput();
@@ -122,6 +122,7 @@ namespace JM
             // ACTIONS
             HandleDodgeInput();
             HandleSprintInput();
+            HandleJumpInput();
         }
 
         //------------------------------MOVEMENT---------------------------------//

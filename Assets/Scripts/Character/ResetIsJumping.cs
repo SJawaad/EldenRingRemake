@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using JM;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace JM
 {
-    public class ResetActionFlag : StateMachineBehaviour
+    public class ResetIsJumping : StateMachineBehaviour
     {
         CharacterManager character;
 
@@ -16,10 +16,6 @@ namespace JM
                 character = animator.GetComponent<CharacterManager>();
             }
 
-            character.isPerformingAction = false;
-            character.applyRootMotion = false;
-            character.canRotate = true;
-            character.canMove = true;
             character.isJumping = false;
         }
 

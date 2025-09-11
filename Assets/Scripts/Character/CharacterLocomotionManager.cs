@@ -9,7 +9,7 @@ namespace JM
         CharacterManager character;
 
         [Header("Ground Check & Jumping")]
-        [SerializeField] float gravityForce = -5.55f;
+        [SerializeField] protected float gravityForce = -5.55f;
         [SerializeField] LayerMask groundLayer;
         [SerializeField] float groundCheckSphereRadius = 1f;
         [SerializeField] protected Vector3 yVelocity; // FORCE AT WHICH CHARACTER WILL BE PULLED UP OR DOWN

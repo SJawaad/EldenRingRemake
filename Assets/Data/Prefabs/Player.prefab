@@ -664,6 +664,10 @@ MonoBehaviour:
   sprintingStaminaCost: 5
   dodgeStaminaCost: 20
   jumpStaminaCost: 25
+  jumpHeight: 2
+  jumpDirection: {x: 0, y: 0, z: 0}
+  jumpForwardSpeed: 5
+  freeFallSpeed: 2
 --- !u!114 &-1484513625647574042
 MonoBehaviour:
   m_ObjectHideFlags: 0

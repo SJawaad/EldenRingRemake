@@ -26,6 +26,10 @@ namespace JM
 
         [Header("Jump Settings")]
         [SerializeField] float jumpStaminaCost = 25f;
+        [SerializeField] float jumpHeight = 2f;
+        [SerializeField] Vector3 jumpDirection;
+        [SerializeField] float jumpForwardSpeed = 5f;
+        [SerializeField] float freeFallSpeed = 2f;
 
         protected override void Awake()
         {
@@ -56,6 +60,8 @@ namespace JM
         public void HandleAllMovement()
         {
             HandleGroundedMovement();
+            HandleJumpingMovement();
+            HandleFreeFallMovement();
             HandleRotation();
         }
 
@@ -95,6 +101,28 @@ namespace JM
                     // MOVE AT WALKING SPEED
                     player.characterController.Move(movementDirection * walkingSpeed * Time.deltaTime);
                 }
+            }
+        }
+
+        private void HandleJumpingMovement()
+        {
+            if (player.isJumping)
+            {
+                player.characterController.Move(jumpDirection * jumpForwardSpeed * Time.deltaTime);
+            }
+        }
+
+        private void HandleFreeFallMovement()
+        {
+            if (!player.isGrounded)
+            {
+                Vector3 freeFallDirection;
+
+                freeFallDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+                freeFallDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+                freeFallDirection.y = 0;
+
+                player.characterController.Move(freeFallDirection * freeFallSpeed * Time.deltaTime);
             }
         }
 
@@ -193,7 +221,7 @@ namespace JM
             if (player.isJumping)
                 return;
 
-            if (player.isGrounded)
+            if (!player.isGrounded)
                 return;
 
             player.playerAnimatorManager.PlayTargetActionAnimation("Main_Jump_Start_01", false);
@@ -201,13 +229,33 @@ namespace JM
             player.isJumping = true;
 
             player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
+
+            jumpDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+            jumpDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+            jumpDirection.y = 0;
+
+            if (jumpDirection != Vector3.zero)
+            {
+                // IF SPRINTING, JUMP FURTHER
+                if (player.playerNetworkManager.isSprinting.Value)
+                {
+                    jumpDirection *= 1;
+                }
+                else if (moveAmount > 0.5f)
+                {
+                    jumpDirection *= 0.5f;
+                }
+                else if (moveAmount <= 0.5f)
+                {
+                    jumpDirection *= 0.25f;
+                }
+            }
         }
 
         public void ApplyJumpingVelocity()
         {
             // APPLY AN UPWARD VELOCITY
-
-
+            yVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityForce);
         }
     }
 }
