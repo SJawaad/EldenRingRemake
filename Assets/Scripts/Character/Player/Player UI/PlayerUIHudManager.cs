@@ -6,6 +6,7 @@ namespace JM
 {
     public class PlayerUIHudManager : MonoBehaviour
     {
+        [SerializeField] UIStatBar healthBar;
         [SerializeField] UIStatBar staminaBar;
 
         public void SetNewStaminaValue(float oldValue, float newValue)
