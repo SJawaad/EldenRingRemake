@@ -10,6 +10,14 @@ namespace JM
         [Header("Character Name")]
         public string characterName = "Character";
 
+        [Header("Attributes")]
+        public int vigor;
+        public int endurance;
+
+        [Header("Stats")]
+        public float currentHealth;
+        public float currentStamina;
+
         [Header("Time Played")]
         public float secondsPlayed;
 

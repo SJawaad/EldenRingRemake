@@ -95,12 +95,18 @@ namespace JM
                 currentCharacterSlotBeingUsed = slot;
                 currentCharacterData = new CharacterSaveData();
 
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
             }
 
             // NO FREE SLOTS AVAILABLE
             TitleScreenManager.instance.DisplayNoFreeCharacterSlotsPopUp();
+        }
+
+        private void NewGame()
+        {
+            SaveGame();
+            StartCoroutine(LoadWorldScene());
         }
 
         public void LoadGame()

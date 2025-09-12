@@ -7,12 +7,19 @@ namespace JM
 {
     public class UIStatBar : MonoBehaviour
     {
-        // VARIABLE TO SCALE BAR SIZE DEPENDING ON STAT (HIGER STAT = LONGER BAR)
         private Slider slider;
+        private RectTransform rectTransform;
+
+        // VARIABLE TO SCALE BAR SIZE DEPENDING ON STAT (HIGER STAT = LONGER BAR)
+        [Header("Bar Settings")]
+        [SerializeField] protected bool scaleBar = true;
+        [SerializeField] protected float scaleMultiplier = 1f;
+
 
         protected virtual void Awake()
         {
             slider = GetComponent<Slider>();
+            rectTransform = GetComponent<RectTransform>();
         }
 
         public virtual void SetStat(float newValue)
@@ -24,6 +31,13 @@ namespace JM
         {
             slider.maxValue = maxValue;
             slider.value = maxValue;
+
+            if (scaleBar)
+            {
+                rectTransform.sizeDelta = new Vector2(maxValue * scaleMultiplier, rectTransform.sizeDelta.y);
+                // RESET HUD POSITION AFTER SCALING
+                PlayerUIManager.instance.playerUIHudManager.RefreshHUD();
+            }
         }
     }
 }

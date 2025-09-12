@@ -501,7 +501,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.746
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -517,6 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb89fbabdfb7902489f6b863c7450925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleBar: 1
+  scaleMultiplier: 1
 --- !u!1 &5962231822727453022
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,6 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1ae290fa263fa46b76dee782ba58ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 1231235769994928121}
   staminaBar: {fileID: 4829118266806274202}
 --- !u!1 &8249499327820551516
 GameObject:
@@ -904,7 +907,7 @@ GameObject:
   - component: {fileID: 2200093480962281573}
   - component: {fileID: 1231235769994928121}
   m_Layer: 0
-  m_Name: health Bar
+  m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,7 +982,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.746
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -995,6 +998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb89fbabdfb7902489f6b863c7450925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleBar: 1
+  scaleMultiplier: 2
 --- !u!1 &8360471973491268022
 GameObject:
   m_ObjectHideFlags: 0

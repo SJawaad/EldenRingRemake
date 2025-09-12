@@ -56,13 +56,14 @@ namespace JM
                 PlayerInputManager.instance.player = this;
                 WorldSaveGameManager.instance.player = this;
 
+                // UPDATE TOTAL AMOUNT OF HEALTH OR STAMINA WHEN LINKED ATTRIBUTE CHANGES
+                playerNetworkManager.vigor.OnValueChanged += playerNetworkManager.SetNewMaxHealthValue;
+                playerNetworkManager.endurance.OnValueChanged += playerNetworkManager.SetNewMaxStaminaValue;
+
+                // UPDATES STAT BAR WHEN STAT CHANGES
+                playerNetworkManager.currentHealth.OnValueChanged += PlayerUIManager.instance.playerUIHudManager.SetNewHealthValue;
                 playerNetworkManager.currentStamina.OnValueChanged += PlayerUIManager.instance.playerUIHudManager.SetNewStaminaValue;
                 playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenTimer;
-
-                // THIS WILL BE MOVED WHEN SAVING AND LOADING IS ADDED
-                playerNetworkManager.maxStamina.Value = playerStatsManager.CalculateTotalStaminaBasedOnEnduranceLevel(playerNetworkManager.endurance.Value);
-                playerNetworkManager.currentStamina.Value = playerStatsManager.CalculateTotalStaminaBasedOnEnduranceLevel(playerNetworkManager.endurance.Value);
-                PlayerUIManager.instance.playerUIHudManager.SetMaxStaminaValue(playerNetworkManager.maxStamina.Value);
             }
         }
 
@@ -72,6 +73,12 @@ namespace JM
             currentCharacterData.xPosition = transform.position.x;
             currentCharacterData.yPosition = transform.position.y;
             currentCharacterData.zPosition = transform.position.z;
+
+            currentCharacterData.vigor = playerNetworkManager.vigor.Value;
+            currentCharacterData.endurance = playerNetworkManager.endurance.Value;
+
+            currentCharacterData.currentHealth = playerNetworkManager.currentHealth.Value;
+            currentCharacterData.currentStamina = playerNetworkManager.currentStamina.Value;
         }
 
         public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currentCharacterData)
@@ -80,6 +87,17 @@ namespace JM
 
             Vector3 myPosition = new Vector3(currentCharacterData.xPosition, currentCharacterData.yPosition, currentCharacterData.zPosition);
             transform.position = myPosition;
+
+            playerNetworkManager.vigor.Value = currentCharacterData.vigor;
+            playerNetworkManager.endurance.Value = currentCharacterData.endurance;
+
+            playerNetworkManager.maxHealth.Value = playerStatsManager.CalculateTotalHealthBasedOnVigorLevel(playerNetworkManager.vigor.Value);
+            playerNetworkManager.maxStamina.Value = playerStatsManager.CalculateTotalStaminaBasedOnEnduranceLevel(playerNetworkManager.endurance.Value);
+
+            playerNetworkManager.currentHealth.Value = currentCharacterData.currentHealth;
+            playerNetworkManager.currentStamina.Value = currentCharacterData.currentStamina;
+
+            PlayerUIManager.instance.playerUIHudManager.SetMaxStaminaValue(playerNetworkManager.maxStamina.Value);
         }
     }
 }

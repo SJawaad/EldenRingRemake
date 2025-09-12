@@ -19,6 +19,38 @@ namespace JM
             character = GetComponent<CharacterManager>();
         }
 
+        protected virtual void Start()
+        {
+
+        }
+
+        public int CalculateTotalHealthBasedOnVigorLevel(int vigor)
+        {
+            float health = 0;
+
+            // APPLY EQUATION TO CALCULATE TOTAL STAMINA BASED ON ENDURANCE LEVEL
+            // USING ELDEN RING FORMULA
+
+            if (vigor <= 25)
+            {
+                health = 300 + 500 * Mathf.Pow(((vigor - 1) / 24f), 1.5f);
+            }
+            else if (vigor >= 26 && vigor <= 40)
+            {
+                health = 800 + 650 * Mathf.Pow(((vigor - 25) / 15f), 1.1f);
+            }
+            else if (vigor >= 41 && vigor <= 60)
+            {
+                health = 1450 + 450 * Mathf.Pow(1 - (1 - ((vigor - 40) / 20f)), 1.2f);
+            }
+            else
+            {
+                health = 1900 + 200 * Mathf.Pow(1 - (1 - ((vigor - 60) / 39f)), 1.2f);
+            }
+
+            return Mathf.RoundToInt(health);
+        }
+
         public int CalculateTotalStaminaBasedOnEnduranceLevel(int endurance)
         {
             float stamina = 0;

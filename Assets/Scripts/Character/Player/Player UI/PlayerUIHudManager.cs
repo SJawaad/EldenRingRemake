@@ -9,6 +9,25 @@ namespace JM
         [SerializeField] UIStatBar healthBar;
         [SerializeField] UIStatBar staminaBar;
 
+        public void RefreshHUD()
+        {
+            healthBar.gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(true);
+
+            staminaBar.gameObject.SetActive(false);
+            staminaBar.gameObject.SetActive(true);
+        }
+
+        public void SetNewHealthValue(float oldValue, float newValue)
+        {
+            healthBar.SetStat(newValue);
+        }
+
+        public void SetMaxHealthValue(float maxValue)
+        {
+            healthBar.SetMaxStat(maxValue);
+        }
+
         public void SetNewStaminaValue(float oldValue, float newValue)
         {
             staminaBar.SetStat(newValue);
