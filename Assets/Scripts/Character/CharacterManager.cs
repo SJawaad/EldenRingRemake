@@ -12,6 +12,9 @@ namespace JM
 
         [HideInInspector] public CharacterNetworkManager characterNetworkManager;
 
+        [Header("Status")]
+        public NetworkVariable<bool> isDead = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [Header("Flags")]
         public bool isPerformingAction = false;
         public bool isJumping = false;
